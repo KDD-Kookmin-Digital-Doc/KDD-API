@@ -75,47 +75,47 @@ RAG 파이프라인으로 검색·분석하여 자연어 질의에 정확한 답
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Client (Frontend)                     │
-│                   index.html + config.js                     │
+│                        Client (Frontend)                    │
+│                   index.html + config.js                    │
 └──────────────────────────┬──────────────────────────────────┘
                            │ HTTP REST API
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   Spring Boot Application                    │
-│                      (port 8000)                             │
-│                                                              │
-│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐  │
-│  │  Controller  │  │   Security   │  │     Config        │  │
-│  │  (6개 API)   │→│ GoogleAuth   │  │ AppConfig         │  │
-│  │             │  │ JwtService   │  │ SecurityConfig    │  │
-│  │             │  │              │  │ WebConfig (CORS)  │  │
-│  └──────┬──────┘  └──────────────┘  └───────────────────┘  │
-│         │                                                    │
+│                   Spring Boot Application                   │
+│                      (port 8000)                            │
+│                                                             │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐   │
+│  │  Controller  │  │   Security   │  │     Config       │   │
+│  │  (6개 API)   │→│ GoogleAuth   │  │ AppConfig          │   │
+│  │             │  │ JwtService   │  │ SecurityConfig    │   │
+│  │             │  │              │  │ WebConfig (CORS)  │   │
+│  └──────┬──────┘  └──────────────┘  └───────────────────┘   │
+│         │                                                   │
 │  ┌──────▼──────────────────────────────────────────────┐    │
-│  │                    Service Layer                      │    │
-│  │                                                      │    │
-│  │  SearchService ─→ EmbeddingService (Gemini 임베딩)   │    │
-│  │       │         → QdrantService (벡터 검색)          │    │
-│  │       │         → CohereRerankService (리랭킹)       │    │
-│  │       ▼                                              │    │
-│  │  AnswerService ─→ GeminiService (답변 생성)          │    │
-│  │                                                      │    │
-│  │  PdfParserService (PDF → 텍스트)                     │    │
-│  │  ChunkerService (텍스트 → 청크 분할)                 │    │
-│  └──────┬───────────────────────────────────────────────┘    │
+│  │                    Service Layer                    │    │
+│  │                                                     │    │
+│  │  SearchService ─→ EmbeddingService (Gemini 임베딩)    │    │
+│  │       │         → QdrantService (벡터 검색)           │     │
+│  │       │         → CohereRerankService (리랭킹)       │      │
+│  │       ▼                                             │     │
+│  │  AnswerService ─→ GeminiService (답변 생성)           │     │
+│  │                                                     │     │
+│  │  PdfParserService (PDF → 텍스트)                     │      │
+│  │  ChunkerService (텍스트 → 청크 분할)                    │     │
+│  └──────┬─────────────────────────────────────────────┘      │
 │         │                                                    │
-│  ┌──────▼──────────────────────────────────────────────┐    │
-│  │              Repository Layer (JPA)                   │    │
-│  │  ChatLogRepository │ DocumentChunkRepository         │    │
-│  │  UserProfileRepository                               │    │
-│  └──────┬───────────────────────────────────────────────┘    │
+│  ┌──────▼──────────────────────────────────────────────┐     │
+│  │              Repository Layer (JPA)                 │     │
+│  │  ChatLogRepository │ DocumentChunkRepository        │     │
+│  │  UserProfileRepository                              │     │
+│  └──────┬──────────────────────────────────────────────┘     │
 │         │                                                    │
 └─────────┼────────────────────────────────────────────────────┘
           │
     ┌─────▼─────┐     ┌──────────────┐
     │  SQLite   │     │   Qdrant     │
     │  (fts.db) │     │ (Vector DB)  │
-    │           │     │  3072차원    │
+    │           │     │  3072차원     │
     │ chat_logs │     │  Cosine      │
     │ user_prof │     │              │
     │ doc_chunks│     │              │
