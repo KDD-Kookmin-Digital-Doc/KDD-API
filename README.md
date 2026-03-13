@@ -41,7 +41,7 @@ RAG 파이프라인으로 검색·분석하여 자연어 질의에 정확한 답
 
 | 분류 | 기술 | 버전 | 용도 |
 |------|------|------|------|
-| **Framework** | Spring Boot | 3.2.3 | 웹 애플리케이션 프레임워크 |
+| **Framework** | Spring Boot | 3.4.3 | 웹 애플리케이션 프레임워크 |
 | **Language** | Java | 17 (LTS) | 메인 언어 |
 | **Build** | Gradle | 8.5 | 빌드 도구 |
 | **ORM** | Spring Data JPA + Hibernate | 6.4 | SQLite 데이터 접근 |
